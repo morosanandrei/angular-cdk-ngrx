@@ -1,0 +1,35 @@
+<div class="orders">
+  <ng-container *ngIf="orders$ | async as orders">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="column" fxLayoutGap="10px">
+        <div class="mat-title-extended">ALL ORDERS</div>
+        <mat-form-field appearance="fill">
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate">
+            <input matStartDate placeholder="Start date" (dateChange)="setStartDate($event.value)" [value]="orders?.dateFilter?.minDate">
+            <input matEndDate placeholder="End date" (dateChange)="setEndDate($event.value)" [value]="orders?.dateFilter?.maxDate">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+
+      <button mat-stroked-button color="accent" (click)="refreshData()" *cdkPortal>
+        <span>Refresh data</span>
+        <mat-icon>refresh</mat-icon>
+      </button>
+
+    </div>
+    <ng-container *ngIf="filteredOrders$ | async as filteredOrders">
+      <app-order-table
+        [orders]="filteredOrders"
+        (sortChanged)="handleSortChanged($event)"
+        (openOrderEvent)="handleOpenOrderEvent($event)"
+      >
+      </app-order-table>
+    </ng-container>
+
+  </ng-container>
+</div>
+<router-outlet></router-outlet>
+

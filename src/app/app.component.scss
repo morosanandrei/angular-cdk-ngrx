@@ -1,0 +1,24 @@
+.container {
+  position: relative;
+
+  app-header {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+
+  &__router {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 70px;
+    min-height: calc(100vh - 70px);
+    padding-left: 10px;
+    padding-right: 10px;
+    position: relative;
+  }
+
+}
